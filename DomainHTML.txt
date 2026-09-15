@@ -1,0 +1,15 @@
+<html>
+<head>
+  <link href="style.css"
+    rel="stylesheet"
+</head>
+<body>
+<img src="https://cdn.discordapp.com/attachments/1283598711959584871/1548031219101335652/20260125_1305051.gif?ex=6aa593eb&is=6aa4426b&hm=acd0399ee3e72c7b4788c01749a075ac3b659f0d748bff2eb88a9997e7bfbe26&" width="150" height="150"/>
+<h1>N I G H T</h1>
+<h2>Aspiring Manga Writer and Director, Game Developer and designer!</h2>
+<p>Welcome to my page!</p>
+<a href="https://www.instagram.com/night.dev.art?stkn=czV4dzR4ZnBjbThn"target="_blank">Instagram</a>
+<!--a href="https://" target="_blank">Patreon-->
+<img src="https://cdn.discordapp.com/attachments/1283598711959584871/1548042282748616786/export202607210425457446.png?ex=6aa59e39&is=6aa44cb9&hm=caa23d900eb7c48ef2ff3e32cb5bcf1b629177082a4c9c49cb05f95f705f68dd&" alt="Manga Cover" class="manga-cover" height= "150" width="150">
+</body>
+</html>
