@@ -22,3 +22,22 @@ a{background-color: white;
   border: 3px solid white;
   display: block;
   margin: 30px auto; border: solid black;}
+.game-link {
+   background: none:
+   padding: 0;
+   max-width: none;
+   display: block;
+   margin: 20px auto;
+}
+.game-cover {
+   width: 200px;
+   height: auto;
+   border-radius: 10px;
+   border: 3px solid white;
+   display: block;
+   margin: 0 auto;
+   cursor: pointer;
+}
+.game-cover:hover {
+   opacity: 0.85;
+}
