@@ -35,15 +35,9 @@ a:hover { color: var(--pink); }
 a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
 ::selection { color: var(--ink); background: var(--cyan-soft); }
 
-.dots,
 .wash { position: fixed; inset: 0; pointer-events: none; }
-.dots {
-  z-index: -2;
-  background-image: radial-gradient(#d7d3d3 1px, transparent 1.5px);
-  background-size: 18px 18px;
-}
 .wash {
-  z-index: -1;
+  z-index: -2;
   background:
     radial-gradient(ellipse at 18% 12%, rgb(98 197 238 / 30%), transparent 38%),
     radial-gradient(ellipse at 85% 28%, rgb(255 144 177 / 27%), transparent 38%),
