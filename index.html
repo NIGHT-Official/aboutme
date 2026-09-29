@@ -1,20 +1,78 @@
-<html>
-<head>
-  <link href="style.css"
-    rel="stylesheet"
-</head>
-<body>
-<img src="SolarPup.gif" width="150" height="150"/>
-<h1>N I G H T</h1>
-<h2>Aspiring Manga Writer and Director, Game Developer and designer!</h2>
-<p>Welcome to my page!</p>
-<a href="https://www.instagram.com/night.dev.art?stkn=czV4dzR4ZnBjbThn" target="_blank">Instagram</a>
-<!--a href="https://" target="_blank">Patreon-->
-<a href="https://game.nightart.dev/" target="_blank" class="game-link">
-  <img src="NewBackground.jpg" alt="playtest my game here" class="game-cover" width="200">
-</a>
-<p>Playtest my game here!</p>
-<img src="MangaCover.png" alt="Manga Cover" class="manga-cover" height= "150" width="150">
-<p>My Manga is in Development!!</p>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f2f2">
+    <meta name="description" content="The creative corner of NIGHT: manga, games, and worlds in the making.">
+    <title>NIGHT — Stories, worlds &amp; games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="dots" aria-hidden="true"></div>
+    <div class="wash" aria-hidden="true"></div>
+
+    <main class="page">
+      <nav class="top" aria-label="Social links">
+        <a href="https://www.instagram.com/night.dev.art?stkn=czV4dzR4ZnBjbThn" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <header class="intro">
+        <p class="kicker">A creative corner of the internet</p>
+        <h1>N I G H T</h1>
+        <p class="tagline">Aspiring manga writer and director, game developer, and designer. Making stories and little worlds one idea at a time.</p>
+        <div class="stickers" aria-label="What I make">
+          <span class="sticker sticker-pink">Manga</span>
+          <span class="sticker sticker-blue">Games</span>
+          <span class="sticker sticker-pink">New worlds</span>
+        </div>
+      </header>
+
+      <section class="banner" aria-labelledby="welcome-title">
+        <figure class="hero">
+          <img src="SolarPup.gif" alt="An animated companion from one of my creative worlds">
+        </figure>
+        <div class="banner-copy">
+          <p class="kicker">Welcome to my page</p>
+          <h2 id="welcome-title">A few things<br>in the making.</h2>
+          <p>Explore my game, take a peek at my manga, and follow along as both grow.</p>
+          <a class="button button-primary" href="https://game.nightart.dev/" target="_blank" rel="noopener noreferrer">Play the game <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="work band" aria-labelledby="work-title">
+        <div class="band-heading">
+          <p class="kicker">On my workbench</p>
+          <h2 class="band-title" id="work-title">In progress</h2>
+          <p class="note">A couple of projects I’m excited to share.</p>
+        </div>
+        <div class="cards">
+          <article class="project-card card-game">
+            <a class="project-image" href="https://game.nightart.dev/" target="_blank" rel="noopener noreferrer" aria-label="Visit the game playtest">
+              <img src="NewBackground.jpg" alt="Artwork for my game">
+            </a>
+            <p class="project-label">Game · Playtest</p>
+            <h3>Come explore</h3>
+            <p class="project-copy">My game is in development and ready for playtesting. Drop in and see what I’m building.</p>
+            <a class="text-link" href="https://game.nightart.dev/" target="_blank" rel="noopener noreferrer">Playtest the game <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="project-card card-manga">
+            <img class="manga-cover" src="MangaCover.png" alt="Cover artwork for my manga">
+            <p class="project-label">Manga · In development</p>
+            <h3>A story taking shape</h3>
+            <p class="project-copy">My manga is in development. I’m working on bringing its characters and world to life.</p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>More stories, sketches, and updates are on Instagram.</p>
+        <a class="button button-primary" href="https://www.instagram.com/night.dev.art?stkn=czV4dzR4ZnBjbThn" target="_blank" rel="noopener noreferrer">Come say hi <span aria-hidden="true">↗</span></a>
+      </footer>
+    </main>
+  </body>
 </html>
