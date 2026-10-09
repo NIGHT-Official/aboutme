@@ -54,6 +54,25 @@
         <div class="contact">
           <div class="contact-column">
             <a class="button button-secondary" href="mailto:night.dev.art@gmail.com">night.dev.art@gmail.com</a>
+            <details class="contact-form">
+              <summary class="button button-secondary">Send a message here</summary>
+              <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="9fefb796-1fa1-4b2f-9b2b-114af20403f0">
+                <input type="hidden" name="subject" value="New message from nightart.dev">
+                <input type="hidden" name="from_name" value="nightart.dev contact form">
+                <!-- A box people never see or tick. Programs that fill in every field give themselves away. -->
+                <input type="checkbox" name="botcheck" class="form-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <label for="contact-name">Your name</label>
+                <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+                <label for="contact-email">Your email, so I can reply</label>
+                <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="200" required>
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" rows="6" maxlength="5000" required></textarea>
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAFSgP6XYoY4BXLsG" data-theme="light"></div>
+                <button class="button button-primary" type="submit">Send</button>
+                <p id="contact-status" class="form-status" role="status" aria-live="polite"></p>
+              </form>
+            </details>
           </div>
           <div class="contact-column">
             <a class="button button-secondary" href="https://www.instagram.com/night.dev.art" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
@@ -62,5 +81,7 @@
         </div>
       </footer>
     </main>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="contact.js" defer></script>
   </body>
 </html>
