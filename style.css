@@ -135,3 +135,34 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   *, *::before { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* ---- Site hub (home page, product pages): added to the roadmap's styles ---- */
+.top { gap: 22px; align-items: center; flex-wrap: wrap; }
+.top .brand { margin-right: auto; color: var(--ink); font-weight: 700; letter-spacing: .08em; }
+.top a[aria-current="page"]:not(.brand) { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; }
+
+.h1-product { font-size: clamp(44px, 8vw, 96px); line-height: .98; padding-bottom: .08em; }
+
+.doors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-bottom: 104px; }
+.door { display: flex; flex-direction: column; gap: 22px; padding: 26px; border-radius: 18px; color: var(--ink); text-decoration: none; background-size: 220% 220%; animation: shift 16s ease-in-out infinite; box-shadow: var(--shadow-md); transition: transform 180ms ease, box-shadow 180ms ease; }
+.door:hover { color: var(--ink); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.door-art { overflow: hidden; aspect-ratio: 4 / 3; margin: 0; border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-sm); }
+.door-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.door-art-plain { display: grid; place-items: center; }
+.door-art-plain img { width: 46%; height: auto; object-fit: contain; }
+.door-copy h2 { margin: 6px 0 10px; font-size: clamp(32px, 4.5vw, 46px); font-weight: 600; letter-spacing: -.035em; line-height: 1; }
+.door-copy p:not(.kicker) { margin-bottom: 12px; font-size: 18px; text-wrap: pretty; }
+.door-go { margin: 0; color: var(--cyan-dark); font-weight: 600; }
+.door:hover .door-go { color: var(--pink); }
+
+.shot { margin: 0 0 96px; }
+.shot img { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: var(--shadow-lg); }
+.shot figcaption { max-width: 38em; margin-top: 14px; color: var(--muted); font-size: 16px; font-style: italic; }
+.shot-small { width: min(100%, 720px); }
+.free + .free { margin-top: -40px; }
+.small-print { max-width: 46em !important; margin: 28px 0 0 !important; color: var(--muted); font-size: 14px !important; font-style: normal !important; line-height: 1.5 !important; }
+
+@media (max-width: 720px) {
+  .doors { grid-template-columns: minmax(0, 1fr); margin-bottom: 76px; }
+  .shot { margin-bottom: 64px; }
+}
