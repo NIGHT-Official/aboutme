@@ -51,8 +51,9 @@
     </main>
 
     <script>
-      // The address of SnapShelf's license server. Filled in when it is deployed.
+      // SnapShelf's license server, and its copy for Stripe's sandbox (test purchases).
       var LICENSE_SERVER = "https://snapshelf-license.snapshelf-license-server.workers.dev";
+      var TEST_LICENSE_SERVER = "https://snapshelf-license-test.snapshelf-license-server.workers.dev";
 
       (function () {
         var status = document.getElementById("thanks-status");
@@ -66,14 +67,19 @@
           status.textContent = "Your payment went through, but keys are not being issued from this page yet." + help;
           return;
         }
-        fetch(LICENSE_SERVER + "/v1/purchase?session_id=" + encodeURIComponent(session))
+        // A sandbox purchase has an id starting "cs_test_"; its key comes from the test server.
+        var isTest = session.indexOf("cs_test_") === 0;
+        var server = isTest ? TEST_LICENSE_SERVER : LICENSE_SERVER;
+        fetch(server + "/v1/purchase?session_id=" + encodeURIComponent(session))
           .then(function (reply) { return reply.json(); })
           .then(function (body) {
             if (!body.ok) {
               status.textContent = (body.error || "Your key could not be fetched.") + help;
               return;
             }
-            status.textContent = "Your payment went through. Here is your license key.";
+            status.textContent = isTest
+              ? "Test purchase. This key only works with a test copy of SnapShelf."
+              : "Your payment went through. Here is your license key.";
             document.getElementById("key-text").textContent = body.key;
             document.getElementById("key-box").hidden = false;
             document.getElementById("key-steps").hidden = false;
