@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f2f2">
+    <meta name="robots" content="noindex">
+    <title>Thank you — your SnapShelf license key</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="../../style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wash" aria-hidden="true"></div>
+
+    <main class="page">
+      <nav class="top" aria-label="Site links">
+        <a class="brand" href="../../">NIGHT</a>
+        <a href="../../aetherbound/">Games</a>
+        <a href="../">Products</a>
+      </nav>
+
+      <header class="intro">
+        <p class="kicker">SnapShelf</p>
+        <h1 class="h1-product">Thank you.</h1>
+        <p class="tagline" id="thanks-status" role="status" aria-live="polite">Fetching your license key…</p>
+      </header>
+
+      <section class="key-box" id="key-box" hidden>
+        <p class="kicker">Your license key</p>
+        <p class="key" id="key-text"></p>
+        <div class="actions">
+          <button class="button button-primary" id="key-copy" type="button">Copy the key</button>
+        </div>
+        <p class="key-note"><strong>Save this key somewhere safe now.</strong> It is not sent by email. Bookmarking this page also works: it will show the key again.</p>
+      </section>
+
+      <section class="free" id="key-steps" hidden>
+        <h2>Using it.</h2>
+        <p>Open SnapShelf, choose <strong>Help</strong>, then <strong>License…</strong>, paste the key and press <strong>Activate</strong>. The key works on two of your computers. To move it to another computer, use "Remove the license from this computer" in the same box first.</p>
+      </section>
+
+      <footer class="footer">
+        <p>Something not right? Write to me.</p>
+        <div class="actions">
+          <a class="button button-secondary" href="mailto:night.dev.art@gmail.com?subject=SnapShelf%20license">night.dev.art@gmail.com</a>
+          <a class="button button-secondary" href="../">Back to SnapShelf</a>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      // The address of SnapShelf's license server. Filled in when it is deployed.
+      var LICENSE_SERVER = "";
+
+      (function () {
+        var status = document.getElementById("thanks-status");
+        var session = new URLSearchParams(window.location.search).get("session_id");
+        var help = " Write to night.dev.art@gmail.com with your receipt and I will send your key.";
+        if (!session) {
+          status.textContent = "This page shows a license key straight after a purchase. It was opened without one.";
+          return;
+        }
+        if (!LICENSE_SERVER) {
+          status.textContent = "Your payment went through, but keys are not being issued from this page yet." + help;
+          return;
+        }
+        fetch(LICENSE_SERVER + "/v1/purchase?session_id=" + encodeURIComponent(session))
+          .then(function (reply) { return reply.json(); })
+          .then(function (body) {
+            if (!body.ok) {
+              status.textContent = (body.error || "Your key could not be fetched.") + help;
+              return;
+            }
+            status.textContent = "Your payment went through. Here is your license key.";
+            document.getElementById("key-text").textContent = body.key;
+            document.getElementById("key-box").hidden = false;
+            document.getElementById("key-steps").hidden = false;
+            var button = document.getElementById("key-copy");
+            button.addEventListener("click", function () {
+              navigator.clipboard.writeText(body.key).then(
+                function () { button.textContent = "Copied"; },
+                function () { button.textContent = "Select the key and copy it by hand"; }
+              );
+            });
+          })
+          .catch(function () {
+            status.textContent = "Your key could not be fetched just now. Reload this page in a minute." + help;
+          });
+      })();
+    </script>
+  </body>
+</html>
