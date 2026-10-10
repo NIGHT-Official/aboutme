@@ -28,17 +28,24 @@
       </header>
 
       <section class="key-box" id="key-box" hidden>
+        <p class="key-warning" role="alert"><span aria-hidden="true">⚠</span> <strong>Save this key now.</strong> It is shown only on this page and is <strong>not emailed to you</strong>.</p>
         <p class="kicker">Your license key</p>
         <p class="key" id="key-text"></p>
         <div class="actions">
-          <button class="button button-primary" id="key-copy" type="button">Copy the key</button>
+          <button class="button button-primary" id="key-save" type="button">Save key as a file</button>
+          <button class="button button-secondary" id="key-copy" type="button">Copy the key</button>
         </div>
-        <p class="key-note"><strong>Save this key somewhere safe now.</strong> It is not sent by email. Bookmarking this page also works: it will show the key again.</p>
+        <p class="key-note">Keep the file, or paste the key somewhere you will find it again: a password manager, your notes, an email to yourself. Bookmarking this page also works: opening it again shows the key.</p>
+        <label class="key-confirm">
+          <input type="checkbox" id="key-saved">
+          <span>I have saved my key</span>
+        </label>
       </section>
 
       <section class="free" id="key-steps" hidden>
         <h2>Using it.</h2>
         <p>Open SnapShelf, choose <strong>Help</strong>, then <strong>License…</strong>, paste the key and press <strong>Activate</strong>. The key works on two of your computers. To move it to another computer, use "Remove the license from this computer" in the same box first.</p>
+        <p>Do not have the app yet? <a href="../#get">Download it here.</a></p>
       </section>
 
       <footer class="footer">
@@ -55,10 +62,63 @@
       var LICENSE_SERVER = "https://snapshelf-license.snapshelf-license-server.workers.dev";
       var TEST_LICENSE_SERVER = "https://snapshelf-license-test.snapshelf-license-server.workers.dev";
 
+      // Show the key with its buttons. The steps for using it stay hidden
+      // until the buyer ticks "I have saved my key".
+      function showKey(key) {
+        document.getElementById("key-text").textContent = key;
+        document.getElementById("key-box").hidden = false;
+
+        var copy = document.getElementById("key-copy");
+        copy.addEventListener("click", function () {
+          navigator.clipboard.writeText(key).then(
+            function () { copy.textContent = "Copied"; },
+            function () { copy.textContent = "Select the key and copy it by hand"; }
+          );
+        });
+
+        var save = document.getElementById("key-save");
+        save.addEventListener("click", function () {
+          var text = [
+            "SnapShelf license key",
+            "",
+            key,
+            "",
+            "How to use it:",
+            "  1. Open SnapShelf.",
+            "  2. Choose Help, then License...",
+            "  3. Paste the key and press Activate.",
+            "",
+            "The key works on two of your computers. To move it to another",
+            "computer, first use \"Remove the license from this computer\" in the same box.",
+            "",
+            "Keep this file. The key is not sent by email.",
+            "Help: night.dev.art@gmail.com    https://nightart.dev/snapshelf/",
+            ""
+          ].join("\r\n");
+          var link = document.createElement("a");
+          link.href = URL.createObjectURL(new Blob([text], { type: "text/plain" }));
+          link.download = "SnapShelf license key.txt";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          save.textContent = "Saved to your Downloads folder";
+        });
+
+        var saved = document.getElementById("key-saved");
+        saved.addEventListener("change", function () {
+          document.getElementById("key-steps").hidden = !saved.checked;
+        });
+      }
+
       (function () {
         var status = document.getElementById("thanks-status");
         var session = new URLSearchParams(window.location.search).get("session_id");
         var help = " Write to night.dev.art@gmail.com with your receipt and I will send your key.";
+        if (window.location.protocol === "file:" && window.location.search.indexOf("preview") !== -1) {
+          status.textContent = "Your payment went through. Here is your license key.";
+          showKey("SNAP-3ExampleOnlyNotARealKey00-0123456789abcdef");
+          return;
+        }
         if (!session) {
           status.textContent = "This page shows a license key straight after a purchase. It was opened without one.";
           return;
@@ -80,16 +140,7 @@
             status.textContent = isTest
               ? "Test purchase. This key only works with a test copy of SnapShelf."
               : "Your payment went through. Here is your license key.";
-            document.getElementById("key-text").textContent = body.key;
-            document.getElementById("key-box").hidden = false;
-            document.getElementById("key-steps").hidden = false;
-            var button = document.getElementById("key-copy");
-            button.addEventListener("click", function () {
-              navigator.clipboard.writeText(body.key).then(
-                function () { button.textContent = "Copied"; },
-                function () { button.textContent = "Select the key and copy it by hand"; }
-              );
-            });
+            showKey(body.key);
           })
           .catch(function () {
             status.textContent = "Your key could not be fetched just now. Reload this page in a minute." + help;

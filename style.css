@@ -186,6 +186,9 @@ h1 {
 .key { margin: 10px 0 18px; font: 600 clamp(15px, 2.4vw, 20px)/1.4 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; user-select: all; }
 .key-box button { cursor: pointer; font: inherit; font-weight: 600; }
 .key-note { max-width: 40em; margin: 18px 0 0; font-size: 16px; }
+.key-warning { margin: 0 0 20px; padding: 14px 18px; border: 2px solid #9A5B00; border-radius: 8px; background: #FFF4D6; color: #3B2600; font-size: clamp(18px, 2.6vw, 22px); line-height: 1.35; }
+.key-confirm { display: flex; align-items: center; gap: 12px; width: fit-content; margin-top: 22px; padding: 12px 16px; border: 2px solid var(--cyan-dark); border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; }
+.key-confirm input { width: 22px; height: 22px; accent-color: var(--cyan-dark); cursor: pointer; }
 
 .get-actions { margin-top: 28px; }
 .get { margin: 0 0 96px; scroll-margin-top: 24px; }
@@ -207,3 +210,5 @@ h1 {
   .get-grid { grid-template-columns: minmax(0, 1fr); }
   .get { margin-bottom: 64px; }
 }
+.key-box button.button-secondary { background: transparent; }
+.key-box button.button-secondary:hover { background: var(--cyan-dark); }
