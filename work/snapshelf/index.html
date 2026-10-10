@@ -44,7 +44,7 @@
               <tr><td>First code to on sale</td><td><strong>2 days</strong> (8 and 9 October 2026)</td></tr>
               <tr><td>AI coding time, measured</td><td>about 4 hours 40 minutes up to the evening it went on sale</td></tr>
               <tr><td>My time: reading, deciding, setting up accounts</td><td>about 7 hours counted over the two days; roughly 11 including time in other tools and accounts that the clock does not see</td></tr>
-              <tr><td>Automatic tests</td><td><strong>432</strong> as of version 1.0.1, run on Windows and two versions of Linux at every change</td></tr>
+              <tr><td>Automatic tests</td><td><strong>more than 400</strong>, run on Windows and two versions of Linux at every change. <a href="tests/">See what a selection of them check.</a></td></tr>
               <tr><td>Milestones</td><td>14 built, each with an exit test; 1 optional one skipped</td></tr>
               <tr><td>Export speed</td><td>84 files from 12 large photos in 2.8 seconds on a six-core PC</td></tr>
               <tr><td>Start-up</td><td>window shown in about a second</td></tr>
@@ -73,7 +73,7 @@
           <li><strong>A design decision that only failed when seen working.</strong> Watermarks landed in the empty padding around a photo, where a white one vanished. Found by looking at a picture of the real window, not by a test.</li>
           <li><strong>The payment provider changed a day after the code for it was written.</strong> The risk had been flagged, so the provider sat behind a small interface. The rules, the screens and most of the tests survived; a license server had to be designed that was never in the plan.</li>
           <li><strong>A free hosting plan that was not free for this.</strong> Reading its terms before building showed it allowed personal use only. The server moved to another host before a line was written.</li>
-          <li><strong>What 20 passing tests could not see.</strong> The first real call to the deployed license server failed twice, for two unrelated reasons. Either would have stopped every Windows customer from activating a key they had paid for. Both were found in minutes, because the first purchase was made in a sandbox before any customer existed.</li>
+          <li><strong>What passing tests could not see.</strong> The first real call to the deployed license server failed twice, for two unrelated reasons. Either would have stopped every Windows customer from activating a key they had paid for. Both were found in minutes, because the first purchase was made in a sandbox before any customer existed.</li>
           <li><strong>My assistant's own slips are in the record too</strong>: a size reported wrong for a day because links were counted as copies, a commit that swept in unapproved work, a push made without reading a failing test.</li>
         </ul>
 

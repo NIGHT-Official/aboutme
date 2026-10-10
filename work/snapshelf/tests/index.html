@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f2f2">
+    <meta name="description" content="A selection of the automatic tests behind SnapShelf, in plain words: what each one proves, and why it was worth writing.">
+    <title>What the tests check: SnapShelf — NIGHT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="../../../style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wash" aria-hidden="true"></div>
+
+    <main class="page">
+      <nav class="top" aria-label="Site links">
+        <a class="brand" href="../../../">NIGHT</a>
+        <a href="../../../aetherbound/">Games</a>
+        <a href="../../../snapshelf/">Products</a>
+        <a href="../../" aria-current="page">Work</a>
+      </nav>
+
+      <header class="intro">
+        <p class="kicker">SnapShelf · Case study · The tests</p>
+        <h1 class="h1-product">What the tests check, in plain words.</h1>
+        <p class="tagline">SnapShelf has more than 400 automatic tests that run on Windows and Linux at every change. This is a selection of seventeen. I chose them because each one protects a user's files or money, caught a real fault before release, or pins down a decision I made.</p>
+      </header>
+
+      <article class="prose">
+        <p>Every test in the project is named as a sentence saying what it proves, so this list is close to how they read in the code. The tests were written by an AI coding tool. What they check was decided by me.</p>
+
+        <h2>Protecting the user</h2>
+        <dl class="tests">
+          <dt>Originals are byte-for-byte unchanged after an export.</dt>
+          <dd>Also after a cancelled export, and after a run that hit a full disk. Every photo is fingerprinted before and after. This is the product's first promise, so it is tested in the worst cases, not only the normal one.</dd>
+
+          <dt>Free output is the same picture a licensed copy makes.</dt>
+          <dd>The files from the free version and the paid version are compared byte for byte. I decided the free version would never stamp anything on a seller's photos; this test is that decision, enforced.</dd>
+
+          <dt>Being offline never takes the license away.</dt>
+          <dd>A paid copy keeps working with no connection for as long as it likes. After 30 days it asks, gently, to go online once, and still limits nothing.</dd>
+
+          <dt>Only the last four characters of a license key are ever shown.</dt>
+          <dd>So a key cannot leak through a screenshot or a support log.</dd>
+
+          <dt>The update check sends nothing about the user.</dt>
+          <dd>The test reads the request the app makes and confirms it carries only the app's version: no identifier, no extra data in the address.</dd>
+        </dl>
+
+        <h2>Licensing and payment</h2>
+        <dl class="tests">
+          <dt>A third computer is refused at a limit of two.</dt>
+          <dd>And once one computer gives up its place, the third is let in.</dd>
+
+          <dt>A key bought for another product is refused, and its seat given back.</dt>
+          <dd>The refusal must not leave the buyer's key with one of its places used up.</dd>
+
+          <dt>Removing a license while offline is refused.</dt>
+          <dd>If the app forgot the license without telling the server, that computer's place would be lost for good. So it keeps the license and says why.</dd>
+
+          <dt>A refund ends the license at the next check.</dt>
+          <dd>Run against the real license server code, not a copy of its rules, and later confirmed with a refunded test purchase through the payment provider's sandbox.</dd>
+        </dl>
+
+        <h2>Getting it right</h2>
+        <dl class="tests">
+          <dt>The file-name table shows exactly what the export writes.</dt>
+          <dd>The preview of new names and the export share one naming function, and a test exports for every platform with three different patterns and compares the two lists.</dd>
+
+          <dt>eBay never gets a watermark.</dt>
+          <dd>eBay's picture policy does not allow them. The same run that watermarks the other platforms' files leaves eBay's untouched, in the export and in the preview.</dd>
+
+          <dt>A photo smaller than a platform's size is never stretched.</dt>
+          <dd>It is exported as it is and pointed out. Enlarging a small photo makes it blurry, and the seller would not know why.</dd>
+
+          <dt>A broken preset file is listed, and everything else still works.</dt>
+          <dd>Presets are files a user can edit by hand, so a typo in one must not stop the app or hide the others.</dd>
+
+          <dt>Text can be read on every surface, in both themes.</dt>
+          <dd>Every pairing of text and background colour is measured against the accessibility guideline's contrast rule, automatically, so a later colour change cannot quietly break it.</dd>
+        </dl>
+
+        <h2>Tests that caught a real fault</h2>
+        <dl class="tests">
+          <dt>An image too large to open safely is refused.</dt>
+          <dd>The first version of this safeguard sat in the wrong place and such images slipped through. The test failed, and the safeguard was moved before the code went any further.</dd>
+
+          <dt>A run refused because its folder already exists writes nothing into that folder.</dt>
+          <dd>The first version still wrote its report there, which could have replaced an earlier run's report. Caught by this test on the day it was written.</dd>
+
+          <dt>On a padded photo the watermark is on the photo, not in the padding.</dt>
+          <dd>The design's order of steps put the mark in the white border, where a white mark vanished. The first tests showed the design was wrong, and it was changed.</dd>
+        </dl>
+
+        <h2>What the tests did not catch</h2>
+        <p>Two faults were found only when the app first called its real, deployed license server: the server's network refused the app's requests, and Windows could not verify the server's security certificate. No test on a developer's machine could have shown either. They were found in a sandbox, before any customer existed, and each now has a test of its own. That is why the first purchase was a test purchase.</p>
+        <p>The other tests are of the same kind as these. I am glad to walk through all of them on a call.</p>
+      </article>
+
+      <footer class="footer">
+        <div class="actions">
+          <a class="button button-primary" href="../">Back to the case study</a>
+          <a class="button button-secondary" href="../../">Back to Work</a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

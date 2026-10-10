@@ -223,6 +223,11 @@ h1 {
 .facts tr:last-child td { border-bottom: none; }
 .facts td:first-child { color: var(--muted); }
 
+.tests { margin: 0 0 16px; }
+.tests dt { margin-top: 22px; font-weight: 600; }
+.tests dt::before { content: "✓ "; color: var(--cyan-dark); }
+.tests dd { margin: 4px 0 0 1.3em; color: var(--muted); font-size: 17px; line-height: 1.55; }
+
 @media (max-width: 720px) {
   .doors { grid-template-columns: minmax(0, 1fr); margin-bottom: 76px; }
   .shot { margin-bottom: 64px; }
