@@ -68,7 +68,8 @@
                 <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="200" required>
                 <label for="contact-message">Message</label>
                 <textarea id="contact-message" name="message" rows="6" maxlength="5000" required></textarea>
-                <div class="cf-turnstile" data-sitekey="0x4AAAAAAFSgP6XYoY4BXLsG" data-theme="light"></div>
+                <!-- The "I am human" check the form service requires. Its script (below) fills this in. -->
+                <div class="h-captcha" data-captcha="true"></div>
                 <button class="button button-primary" type="submit">Send</button>
                 <p id="contact-status" class="form-status" role="status" aria-live="polite"></p>
               </form>
@@ -81,7 +82,7 @@
         </div>
       </footer>
     </main>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="https://web3forms.com/client/script.js" async defer></script>
     <script src="contact.js" defer></script>
   </body>
 </html>
