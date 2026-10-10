@@ -22,7 +22,7 @@
       </nav>
 
       <header class="intro">
-        <p class="kicker">Desktop app · Windows and Linux · In development</p>
+        <p class="kicker">Desktop app · Windows and Linux · Version 1.0</p>
         <h1 class="h1-product">SnapShelf:<br>one folder in,<br>every platform out.</h1>
         <p class="tagline">Sell the same product in more than one place? Drop in your photos, tick the platforms, and get a ready-to-upload set for each one. Your originals are never changed.</p>
         <div class="stickers" aria-label="At a glance">
@@ -31,10 +31,14 @@
           <span class="sticker sticker-pink">No subscription</span>
           <span class="sticker sticker-blue">Free version</span>
         </div>
+        <div class="actions get-actions">
+          <a class="button button-primary" href="#get">Download free</a>
+          <a class="button button-secondary" href="https://buy.stripe.com/28E3cp09X4t92ou4a5gA802">Buy a license · $4.99</a>
+        </div>
       </header>
 
       <figure class="shot">
-        <img src="snapshelf-window.png" width="1240" height="760" alt="The SnapShelf window: a list of six mug photos on the left, platforms ticked in the middle, and on the right a preview showing how one photo will look for eBay, Etsy, Instagram and Shopify.">
+        <img src="snapshelf-window.png" alt="The SnapShelf window: a list of six mug photos on the left, platforms ticked in the middle, and on the right a preview showing how one photo will look for eBay, Etsy, Instagram and Shopify.">
         <figcaption>Photos on the left, platforms in the middle, and a live preview of each platform's version before anything is saved.</figcaption>
       </figure>
 
@@ -83,6 +87,29 @@
         <figcaption>The file-names box: what every exported file will be called, before you press Export.</figcaption>
       </figure>
 
+      <section class="get" id="get" aria-labelledby="get-title">
+        <h2 id="get-title">Get SnapShelf.</h2>
+        <p>The download is the whole app. It runs as the free version until you enter a license key.</p>
+        <div class="get-grid">
+          <div class="get-card">
+            <p class="kicker">Windows 10 and 11</p>
+            <a class="button button-primary" href="https://github.com/NIGHT-Official/snapshelf-releases/releases/download/v1.0.0/SnapShelf-Setup-1.0.0.exe">Download the installer <span class="size">27 MB</span></a>
+            <p class="get-alt">Or the <a href="https://github.com/NIGHT-Official/snapshelf-releases/releases/download/v1.0.0/SnapShelf-1.0.0-windows-x64.zip">zip version</a> (37 MB): unzip and run, nothing installed.</p>
+          </div>
+          <div class="get-card">
+            <p class="kicker">Linux</p>
+            <a class="button button-primary" href="https://github.com/NIGHT-Official/snapshelf-releases/releases/download/v1.0.0/SnapShelf-1.0.0-x86_64.AppImage">Download the AppImage <span class="size">71 MB</span></a>
+            <p class="get-alt">Mark it as runnable, then open it. Or the <a href="https://github.com/NIGHT-Official/snapshelf-releases/releases/download/v1.0.0/SnapShelf-1.0.0-linux-x86_64.tar.gz">tar.gz</a> (76 MB). Needs a desktop at least as new as Ubuntu 22.04.</p>
+          </div>
+        </div>
+
+        <details class="get-note" open>
+          <summary>Windows will say “Windows protected your PC”. Here is why, and what to do.</summary>
+          <p>SnapShelf is new and its installer is not yet signed with a publisher certificate, so Windows warns the first time you run it. In the blue box, choose <strong>More info</strong>, then <strong>Run anyway</strong>.</p>
+          <p>If you would like to be sure the file is the one published here, compare its SHA-256 checksum with the <a href="https://github.com/NIGHT-Official/snapshelf-releases/releases/download/v1.0.0/SHA256SUMS.txt">published list</a>. In a terminal: <code>certutil -hashfile SnapShelf-Setup-1.0.0.exe SHA256</code></p>
+        </details>
+      </section>
+
       <section class="roadmap-band band-someday" aria-labelledby="price-title">
         <div class="band-heading">
           <p class="kicker">Free and paid</p>
@@ -99,6 +126,7 @@
             <p class="epic">Licensed</p>
             <h3>$4.99, one time</h3>
             <p>No limit on photos, and you can add your own text or logo watermark. One license, for use on two of your computers.</p>
+            <p><a class="button button-primary" href="https://buy.stripe.com/28E3cp09X4t92ou4a5gA802">Buy a license</a></p>
           </article>
         </div>
       </section>
@@ -113,9 +141,9 @@
         <p>The free version exports real, full-quality files, so you can test SnapShelf on your own photos before paying anything. If you buy and it is not right for you, write to <a href="mailto:night.dev.art@gmail.com?subject=SnapShelf">night.dev.art@gmail.com</a>: refunds are handled case by case, and any rights you have under your local consumer law are not affected.</p>
       </section>
 
-      <section class="free" aria-labelledby="status-title">
-        <h2 id="status-title">Where it is now.</h2>
-        <p>SnapShelf is built and in testing, and is not on sale or available to download yet. If you would like to hear when it is, or to try it early, write to <a href="mailto:night.dev.art@gmail.com?subject=SnapShelf">night.dev.art@gmail.com</a>.</p>
+      <section class="free" aria-labelledby="after-title">
+        <h2 id="after-title">After you buy.</h2>
+        <p>Payment is handled by Stripe, who also send your receipt. Straight after paying you are shown your license key: save it, because it is not sent by email. In SnapShelf, choose <strong>Help</strong>, then <strong>License…</strong>, paste the key and press <strong>Activate</strong>. To move the license to another computer, remove it from the old one in the same box first. Lost your key? Write to <a href="mailto:night.dev.art@gmail.com?subject=SnapShelf%20license">night.dev.art@gmail.com</a> with your receipt.</p>
       </section>
 
       <footer class="footer">

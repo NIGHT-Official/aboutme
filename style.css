@@ -187,7 +187,23 @@ h1 {
 .key-box button { cursor: pointer; font: inherit; font-weight: 600; }
 .key-note { max-width: 40em; margin: 18px 0 0; font-size: 16px; }
 
+.get-actions { margin-top: 28px; }
+.get { margin: 0 0 96px; scroll-margin-top: 24px; }
+.get h2 { margin-bottom: 12px; font-size: clamp(32px, 5vw, 40px); line-height: 1.05; }
+.get > p { max-width: 32em; margin: 0 0 24px; font-size: 19px; }
+.get-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-bottom: 24px; }
+.get-card { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px; border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-md); }
+.get-card .size { font-weight: 400; opacity: .85; }
+.get-alt { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.get-note { max-width: 46em; padding: 16px 20px; border-left: 3px solid var(--cyan); border-radius: 6px; background: var(--surface); box-shadow: var(--shadow-sm); }
+.get-note summary { cursor: pointer; font-weight: 600; }
+.get-note p { margin: 12px 0 0; font-size: 16px; line-height: 1.5; }
+.get-note code { padding: 2px 6px; border-radius: 4px; background: var(--paper); font-size: 14px; overflow-wrap: anywhere; }
+.roadmap-card .button { margin-top: 12px; }
+
 @media (max-width: 720px) {
   .doors { grid-template-columns: minmax(0, 1fr); margin-bottom: 76px; }
   .shot { margin-bottom: 64px; }
+  .get-grid { grid-template-columns: minmax(0, 1fr); }
+  .get { margin-bottom: 64px; }
 }
