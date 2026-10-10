@@ -16,9 +16,10 @@
   form.addEventListener("submit", function (event) {
     event.preventDefault();
     var data = new FormData(form);
-    // The "I am not a robot" check adds this field once it has passed.
-    if (form.querySelector(".cf-turnstile") && !data.get("cf-turnstile-response")) {
-      say("Please wait for the “not a robot” check to finish, then press Send again.", "bad");
+    // The "I am human" check fills in this field once it has been ticked.
+    var check = form.querySelector("textarea[name=h-captcha-response]");
+    if (check && !check.value) {
+      say("Please tick the “I am human” box above, then press Send again.", "bad");
       return;
     }
     button.disabled = true;
@@ -39,17 +40,17 @@
       .then(function (result) {
         if (result.ok) {
           form.reset();
-          if (window.turnstile) window.turnstile.reset();
+          if (window.hcaptcha) window.hcaptcha.reset();
           say("Sent. Thank you — I will reply by email.", "good");
         } else {
-          // A "not a robot" pass can be used once. Get a fresh one for the next try.
-          if (window.turnstile) window.turnstile.reset();
+          // An "I am human" pass can be used once. Get a fresh one for the next try.
+          if (window.hcaptcha) window.hcaptcha.reset();
           say("That did not send" + (result.message ? " (the form service said: " + result.message + ")" : "") +
             ". You can email night.dev.art@gmail.com instead.", "bad");
         }
       })
       .catch(function (error) {
-        if (window.turnstile) window.turnstile.reset();
+        if (window.hcaptcha) window.hcaptcha.reset();
         // Shown so the cause can be reported: either the network, or an answer that was not readable.
         say("That did not send (" + (error && error.message ? error.message : "no answer") +
           "). You can email night.dev.art@gmail.com instead.", "bad");
