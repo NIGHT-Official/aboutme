@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f2f2">
+    <meta name="description" content="Case study: a handbook Q&A bot that cites its page and admits what it does not know, and an honest evaluation that showed the gap between tuned and unseen questions.">
+    <title>Case study: a handbook Q&amp;A bot — NIGHT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="../../style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wash" aria-hidden="true"></div>
+
+    <main class="page">
+      <nav class="top" aria-label="Site links">
+        <a class="brand" href="../../">NIGHT</a>
+        <a href="../../aetherbound/">Games</a>
+        <a href="../../snapshelf/">Products</a>
+        <a href="../" aria-current="page">Work</a>
+      </nav>
+
+      <header class="intro">
+        <p class="kicker">Case study · AI assistant · October 2026</p>
+        <h1 class="h1-product">A Q&amp;A bot that cites its page, and admits what it does not know.</h1>
+        <p class="tagline">On questions it had never seen, it answered 4 of 6 correctly, refused all 4 whose answer is not in the documents, and invented nothing. On the questions it was tuned on, it had scored 15 of 15. The difference between those two numbers is the point of this write-up.</p>
+      </header>
+
+      <article class="prose">
+        <h2>The problem</h2>
+        <p>Staff at a small contractor ask questions like "how long is probation?" or "can I accept this gift?", and the answer is somewhere in a city employee handbook. The bot has three jobs:</p>
+        <ol>
+          <li>Answer from the handbooks only.</li>
+          <li>Cite the page, so the person can check.</li>
+          <li>Say "I can't find that in the handbooks" when the answer is not there, instead of guessing.</li>
+        </ol>
+        <p>The third matters most. A confident wrong answer about leave or gifts is worse than no answer.</p>
+        <p>The client is invented and no private data is used. The documents are three real, public city employee handbooks, 193 pages in total.</p>
+
+        <h2>How it works</h2>
+        <ul>
+          <li><strong>It runs on one desktop PC.</strong> A small local AI model on an 8 GB graphics card answers in about 5 seconds. No handbook text leaves the machine.</li>
+          <li><strong>The code decides what counts as a citation, not the model.</strong> The model may only point at passages it was shown. A "found" reply with no usable source is recorded as an error, not passed to the user.</li>
+          <li><strong>Keyword search, not anything exotic.</strong> Simple, fast, and easy to explain and debug. Its limits show up in the results.</li>
+          <li><strong>The model is swappable</strong> by changing one settings file, which made the comparison below possible.</li>
+        </ul>
+
+        <h2>How it was tested</h2>
+        <p>Thirty test questions were written before the bot was built, each with its expected answer and page. They were split in two:</p>
+        <ul>
+          <li><strong>20 for building</strong>, used freely while tuning.</li>
+          <li><strong>10 held back</strong>, never used for tuning, and run exactly once at the end. This is the honest score, because a bot can be adjusted until it passes any questions it has already seen.</li>
+        </ul>
+        <p>Scoring was mechanical, the rules were fixed before any score counted, and a person read every failed answer.</p>
+
+        <h2>Results</h2>
+        <div class="table-wrap">
+          <table class="facts">
+            <thead><tr><th>Measure</th><th>Building questions, after tuning</th><th>Held-back questions, one run</th></tr></thead>
+            <tbody>
+              <tr><td>Correct answers</td><td>15 of 15</td><td><strong>4 of 6</strong></td></tr>
+              <tr><td>All expected pages cited</td><td>15 of 15</td><td><strong>4 of 6</strong></td></tr>
+              <tr><td>"Not in the documents" questions refused</td><td>5 of 5</td><td><strong>4 of 4</strong></td></tr>
+              <tr><td>Answers stating something false</td><td>0</td><td><strong>0</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Six answerable questions is a small sample. The fair statement is "4 of 6 on unseen questions, and it never invented an answer", not a percentage.</p>
+        <p>Both failures were search failures. In one, the right page was found but the passage holding the answer was not among those shown to the model, so it refused. In the other, it gave half the answer correctly and was never shown the page with the other half. <strong>When search failed, the bot refused or answered partly. It did not fill the gap with a guess.</strong> That behaviour is what the design was for, and it held on questions it had never seen.</p>
+
+        <h2>What went wrong</h2>
+        <ul>
+          <li><strong>The test set had errors of its own.</strong> Four of the twenty building questions were wrong, not the bot. One "not in the documents" question had an answer at the back of a handbook, which the bot found and I had missed.</li>
+          <li><strong>Mechanical scoring missed correct answers</strong> worded in a way no approved phrase matched. Reading every failure is not optional.</li>
+          <li><strong>Tuning on a small set overfits.</strong> The search settings were adjusted until the building questions passed. The held-back run showed the fix was narrower than it looked.</li>
+          <li><strong>Handing the coding to a small local model cost more than it saved.</strong> Two three-hour attempts at one step failed review on simple plumbing, so the work moved to stronger tools.</li>
+        </ul>
+
+        <h2>A bigger model was not better</h2>
+        <p>In a second round a large hosted model was swapped in, with the search left alone. On the same 30 questions it scored 18 of 21 against the small local model's 19 of 21, at a measured cost of about 0.44 cents per question. Both failed the same two questions for the same reason: search never showed them the answer. With this search, the search was the limit, not the model. And with a hosted model, the question and the retrieved text leave the building; with the local one, nothing does.</p>
+        <p>The search was then changed to keep rules whole across passage and page breaks. That fixed both known failures on the old questions. It is <strong>not yet confirmed</strong>: those questions are now tuning data, and the change will only count once it is run a single time on new ones.</p>
+
+        <h2>How it was built</h2>
+        <p>I designed the project, wrote the test set, set the targets, and made every decision about what counted as correct. The code was written by AI coding tools working from written specifications. Each change was reviewed, covered by automatic tests that run on Windows and Linux, and recorded in a dated log. Round 1 was finished about 20 hours after the first commit.</p>
+
+        <h2>Limits</h2>
+        <ul>
+          <li>Six answerable held-back questions cannot support a precise accuracy figure.</li>
+          <li>One kind of document, in English, from three sources.</li>
+          <li>Keyword search misses passages that answer a question in different words from the question.</li>
+          <li>The held-back questions are now spent. Any improvement tested against them would be tuned to them.</li>
+        </ul>
+      </article>
+
+      <footer class="footer">
+        <p>Want a bot like this for your own documents, tested this way?</p>
+        <div class="actions">
+          <a class="button button-primary" href="mailto:night.dev.art@gmail.com?subject=Document%20Q%26A%20bot">night.dev.art@gmail.com</a>
+          <a class="button button-secondary" href="../">Back to Work</a>
+        </div>
+        <p class="small-print">The code is in a private repository. I am glad to walk through it, the test questions and the dated log on a call.</p>
+      </footer>
+    </main>
+  </body>
+</html>

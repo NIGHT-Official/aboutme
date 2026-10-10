@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f2f2">
+    <meta name="description" content="Case study: SnapShelf, a paid desktop app taken from a design document to a product on sale in two days by one person directing AI tools, with the numbers and the mistakes.">
+    <title>Case study: SnapShelf — NIGHT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="../../style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wash" aria-hidden="true"></div>
+
+    <main class="page">
+      <nav class="top" aria-label="Site links">
+        <a class="brand" href="../../">NIGHT</a>
+        <a href="../../aetherbound/">Games</a>
+        <a href="../../snapshelf/">Products</a>
+        <a href="../" aria-current="page">Work</a>
+      </nav>
+
+      <header class="intro">
+        <p class="kicker">Case study · Desktop app · October 2026</p>
+        <h1 class="h1-product">From a design document to a product on sale, in two days.</h1>
+        <p class="tagline">SnapShelf is a paid Windows and Linux app for people who sell online. One person directed several AI tools to build it. This is what was built, how long it took, and what each of us got wrong.</p>
+      </header>
+
+      <figure class="shot">
+        <img src="../../snapshelf/snapshelf-window.png" alt="The SnapShelf window: product photos on the left, selling platforms ticked in the middle, and a live preview of each platform's version on the right.">
+        <figcaption>The finished app. <a href="../../snapshelf/">See the product page.</a></figcaption>
+      </figure>
+
+      <article class="prose">
+        <h2>What it does</h2>
+        <p>Drop in a folder of product photos, tick the platforms you sell on (Etsy, eBay, Shopify, Instagram, Gumroad), see a live preview of each platform's version, and export one correctly sized, renamed set per platform. Originals are never changed. It has a free version, a $4.99 license, and its own license server.</p>
+
+        <h2>The numbers</h2>
+        <div class="table-wrap">
+          <table class="facts">
+            <tbody>
+              <tr><td>First code to on sale</td><td><strong>2 days</strong> (8 and 9 October 2026)</td></tr>
+              <tr><td>AI coding time, measured</td><td>about 4 hours 40 minutes up to the evening it went on sale</td></tr>
+              <tr><td>My time: reading, deciding, setting up accounts</td><td>about 7 hours counted over the two days</td></tr>
+              <tr><td>Automatic tests</td><td><strong>432</strong> as of version 1.0.1, run on Windows and two versions of Linux at every change</td></tr>
+              <tr><td>Milestones</td><td>14 built, each with an exit test; 1 optional one skipped</td></tr>
+              <tr><td>Export speed</td><td>84 files from 12 large photos in 2.8 seconds on a six-core PC</td></tr>
+              <tr><td>Start-up</td><td>window shown in about a second</td></tr>
+              <tr><td>Installers</td><td>Windows 27 MB, Linux 71 MB; each installed and run on a second, fresh machine before release</td></tr>
+              <tr><td>Sales so far</td><td>none yet; it went on sale on 9 October</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The design and research before the first line of code were done by another AI tool and were not timed. Whether anyone wants the product is not yet known, and nothing here claims otherwise.</p>
+
+        <h2>Who did what</h2>
+        <ul>
+          <li><strong>I</strong> chose the product, approved the design, agreed the screen layout from a sketch, designed the look, set the price and terms, set up the business and payment accounts, and made every decision between milestones.</li>
+          <li><strong>A research assistant</strong> proposed the idea, wrote the first design, and later checked its own facts and the market.</li>
+          <li><strong>A coding assistant</strong> wrote the code, the tests and the documents, reviewed other tools' work, and built the license server.</li>
+          <li><strong>A design assistant</strong> turned my design direction into the app's finished look.</li>
+        </ul>
+
+        <h2>What went wrong, and what caught it</h2>
+        <p>This is the part I would want to read as a client. Every item was written down when it happened.</p>
+        <ul>
+          <li><strong>The research was wrong in places.</strong> When the same tool was asked to verify its own design, 7 of 33 researched facts needed correcting, including a platform's size limits. Caught before any code depended on them.</li>
+          <li><strong>The premise was checked last.</strong> The idea rested on the claim that no such tool existed on Windows. A market check, done only after ten milestones were built, found several small ones. The plan was finished as designed, the claim was removed everywhere, and the lesson recorded: "who else already does this?" costs an hour and belongs before the design.</li>
+          <li><strong>A "verification" that verified nothing.</strong> A second AI marked the market check "VERIFIED". Its only sources were our own documents. The habit that catches this: read the source list before the conclusion.</li>
+          <li><strong>A crash about one run in six</strong> appeared only when the tests were run several times in a row. A passing test suite had not been shown to be reliable.</li>
+          <li><strong>A design decision that only failed when seen working.</strong> Watermarks landed in the empty padding around a photo, where a white one vanished. Found by looking at a picture of the real window, not by a test.</li>
+          <li><strong>The payment provider changed a day after the code for it was written.</strong> The risk had been flagged, so the provider sat behind a small interface. The rules, the screens and most of the tests survived; a license server had to be designed that was never in the plan.</li>
+          <li><strong>A free hosting plan that was not free for this.</strong> Reading its terms before building showed it allowed personal use only. The server moved to another host before a line was written.</li>
+          <li><strong>What 20 passing tests could not see.</strong> The first real call to the deployed license server failed twice, for two unrelated reasons. Either would have stopped every Windows customer from activating a key they had paid for. Both were found in minutes, because the first purchase was made in a sandbox before any customer existed.</li>
+          <li><strong>My assistant's own slips are in the record too</strong>: a size reported wrong for a day because links were counted as copies, a commit that swept in unapproved work, a push made without reading a failing test.</li>
+        </ul>
+
+        <h2>What I would do the same</h2>
+        <ul>
+          <li><strong>Agree the screen from a sketch first.</strong> Nothing had to be rearranged.</li>
+          <li><strong>One milestone at a time, each with an exit test,</strong> and my go-ahead between them.</li>
+          <li><strong>Try every package on a machine that did not build it.</strong> It found two faults the building machine could not have.</li>
+          <li><strong>Do the first real purchase in a sandbox.</strong></li>
+          <li><strong>Keep the plan steady when surprising news arrives,</strong> park the new ideas, and review them once the planned work is done.</li>
+        </ul>
+
+        <h2>What I would do differently</h2>
+        <ul>
+          <li><strong>Check the market before the design,</strong> not after the build.</li>
+          <li><strong>Open the store before writing code for it.</strong> Ten minutes would have shown the provider had changed.</li>
+          <li><strong>Treat any AI research as a claim until a second source, or a person, has read the original.</strong></li>
+        </ul>
+      </article>
+
+      <footer class="footer">
+        <p>Want something built and documented this way?</p>
+        <div class="actions">
+          <a class="button button-primary" href="mailto:night.dev.art@gmail.com?subject=Work">night.dev.art@gmail.com</a>
+          <a class="button button-secondary" href="../">Back to Work</a>
+        </div>
+        <p class="small-print">The code is in a private repository. I am glad to walk through it, the tests and the dated log on a call. SnapShelf is not affiliated with or endorsed by Etsy, eBay, Shopify, Instagram or Gumroad.</p>
+      </footer>
+    </main>
+  </body>
+</html>
