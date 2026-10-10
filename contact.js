@@ -25,7 +25,14 @@
     say("Sending…");
     fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } })
       .then(function (reply) {
-        return reply.json().then(function (body) {
+        return reply.text().then(function (text) {
+          var body;
+          try {
+            body = JSON.parse(text);
+          } catch (notJson) {
+            // The form service sometimes answers with a web page, not data (a block or an outage).
+            throw new Error("the form service answered with status " + reply.status + ", not a result");
+          }
           return { ok: reply.ok && body.success, message: body.message };
         });
       })
@@ -35,12 +42,17 @@
           if (window.turnstile) window.turnstile.reset();
           say("Sent. Thank you — I will reply by email.", "good");
         } else {
-          say("That did not send" + (result.message ? " (" + result.message + ")" : "") +
+          // A "not a robot" pass can be used once. Get a fresh one for the next try.
+          if (window.turnstile) window.turnstile.reset();
+          say("That did not send" + (result.message ? " (the form service said: " + result.message + ")" : "") +
             ". You can email night.dev.art@gmail.com instead.", "bad");
         }
       })
-      .catch(function () {
-        say("That did not send. Check your connection, or email night.dev.art@gmail.com instead.", "bad");
+      .catch(function (error) {
+        if (window.turnstile) window.turnstile.reset();
+        // Shown so the cause can be reported: either the network, or an answer that was not readable.
+        say("That did not send (" + (error && error.message ? error.message : "no answer") +
+          "). You can email night.dev.art@gmail.com instead.", "bad");
       })
       .then(function () {
         button.disabled = false;
